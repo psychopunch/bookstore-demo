@@ -2,11 +2,11 @@ package io.github.psychopunch.bookstore
 
 import grails.rest.RestfulController;
 
-class BookApiController extends RestfulController<Book> {
+class BookController extends RestfulController<Book> {
 
     static responseFormats = ['json', 'xml']
     
-    BookApiController() {
+    BookController() {
         super(Book)
     }
     
