@@ -28,4 +28,9 @@ class PropertyMixinSpec extends Specification {
         5 == new WithMixin(number: 1, description: "with mixin").mixinProperties().size()
     }
     
+    void "test object without mixin"() {
+        expect:
+        3 == new NoMixin(number: 1, description: "without mixin").properties.size()
+    }
+    
 }
