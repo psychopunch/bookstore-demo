@@ -7,30 +7,45 @@ import spock.lang.Specification
 
 @Mixin(PropertyMixin)
 class WithMixin {
-    
+
     Integer number
     String description
-    
+
 }
 
 class NoMixin {
-    
+
     Integer number
     String description
-    
+
 }
 
 @TestMixin(GrailsUnitTestMixin)
 class PropertyMixinSpec extends Specification {
 
     void "test object with mixin"() {
-        expect:
-        5 == new WithMixin(number: 1, description: "with mixin").mixinProperties().size()
+        when:
+        def declaredProperties = WithMixin.metaClass.properties
+        def declaredPropertyNames = declaredProperties*.name
+
+        then:
+        declaredPropertyNames.size() == 3
+        'class' in declaredPropertyNames
+        'number' in declaredPropertyNames
+        'description' in declaredPropertyNames
     }
-    
+
+
     void "test object without mixin"() {
-        expect:
-        3 == new NoMixin(number: 1, description: "without mixin").properties.size()
+        when:
+        def declaredProperties = NoMixin.metaClass.properties
+        def declaredPropertyNames = declaredProperties*.name
+
+        then:
+        declaredPropertyNames.size() == 3
+        'class' in declaredPropertyNames
+        'number' in declaredPropertyNames
+        'description' in declaredPropertyNames
     }
-    
+
 }
